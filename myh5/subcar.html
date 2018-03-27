@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+    		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    		<script src="js/mui.min.js"></script>
+    		<link href="css/mui.min.css" rel="stylesheet"/>
+		<title></title>
+	</head>
+	<body>
+		<ul class="mui-table-view mui-table-view-chevron">
+			<li class="mui-table-view-cell mui-media">
+				<a class="mui-navigate-right">
+					<img class="mui-media-object mui-pull-left" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+					<div class="mui-media-body">
+						CBD
+						<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</body>
+</html>
+<script src="js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+			    contentdown : "下拉去刷新",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+			    contentover : "请放手",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+			    contentrefresh : "请稍等...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: '请稍等...',
+				callback: pullupRefresh
+			}
+		}
+	});
+			
+	getMovies('in_theaters',function(result){
+		alert(JSON.stringify(result))
+	})
+	
+	if (mui.os.plus) {
+		mui.plusReady(function() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			}, 1000);
+
+		});
+	} else {
+		mui.ready(function() {
+			mui('#pullrefresh').pullRefresh().pullupLoading();
+		});
+	}
+	function getMovies(type,cb){
+		$.ajax({
+			url:'http://gaohongbo.duapp.com/getMovies.php',
+			data:{
+				url:"http://api.douban.com/v2/movie/"+type
+			},
+			dataType:'jsonp',
+			success:function(results){
+				var movies = JSON.parse(results).subjects
+				cb(movies)
+			}
+		})
+	}
+</script>

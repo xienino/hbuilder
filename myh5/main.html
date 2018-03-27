@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+    		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+    		<link href="css/mui.min.css" rel="stylesheet"/>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			h1, h2, h3, h4, h5, h6 {
+			    line-height: 1;
+			    margin-top: 5px;
+			    margin-bottom: 5px;
+			}
+			h5 {
+			    padding-top: 8px;
+			    padding-bottom: 8px;
+			    text-indent: 12px;
+			    font-size: 14px;
+			    font-weight: 400;
+			    color: #8f8f94;
+			}
+			a{text-decoration: none;}
+			img{height: 100%;width: 100%;}
+		</style>
+	</head>
+	<body>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="slider" class="mui-slider" >
+					<div class="mui-slider-group mui-slider-loop">
+						
+					</div>
+					<div class="mui-slider-indicator">
+						
+					</div>
+				</div>
+				<div class="img-text-box">
+					<h5 style="background-color:#efeff4">慢生活</h5>
+					<ul class="mui-table-view mui-grid-view">
+				        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#">
+				                <img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">幸福就是可以一起睡觉</div></a></li>
+				        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#">
+				                <img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div></a></li>
+				        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#"><img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">Color of SIP CBD</div></a></li>
+				        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#">
+				                <img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">静静看这世界</div></a></li>
+				          <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#">
+				                <img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">幸福就是可以一起睡觉</div></a></li>
+				        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#">
+				                <img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div></a></li>
+				        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#"><img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">Color of SIP CBD</div></a></li>
+				        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+				            <a href="#">
+				                <img class="mui-media-object" src="img/UNADJUSTEDNONRAW_thumb_3b3.jpg">
+				                <div class="mui-media-body">静静看这世界</div></a></li>
+				    </ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	mui.init({
+		swipeBack:true //启用右滑关闭功能
+	});
+	
+	
+	getData(function(result){
+//		alert(JSON.stringify(data))
+		var str = ''
+		var _str = ''
+		result.data.slider.forEach(function(item,i){
+			str += '<div class="mui-slider-item"><a href="#"><img src="'+item.picUrl+'"></a></div>'
+			_str += '<div class="mui-indicator"></div>'
+		})
+		mui('.mui-slider-group')[0].innerHTML=str
+		mui('.mui-slider-indicator')[0].innerHTML=_str
+		//实例化
+		var slider = mui("#slider");
+				slider.slider({interval: 5000});
+		})
+	mui('.mui-scroll-wrapper').scroll({
+		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	});
+	function getData(cb){
+		mui.ajax('https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&_=1506390564040',{
+			dataType:'json',//服务器返回json格式数据
+			type:'get',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			headers:{'Content-Type':'application/json'},	              
+			success:function(data){
+				//服务器返回响应，根据响应结果，分析是否登录成功；
+				cb(data)
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(type);
+			}
+		});
+	}
+</script>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/108548/47031/59cb260bf629d80424a68057.css' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="css/game.css"/>
+    <style type="text/css">
+    		body,html{background: #fee455;color: #fff;}
+    		body{
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+		}
+		img{
+			width: 50vw;
+			margin:0px 0px 80px 0;
+		}
+		.mui-btn{width: 70%;margin-bottom:30px;}
+    </style>
+</head>
+<body class="cssd66b5e3331a804">
+	<img src="img/logo.jpeg" />
+	<button class="mui-btn" id="ranking_btn">Ranking List</button>
+	<button class="mui-btn" id="about_btn">About</button>
+	<button class="mui-btn" id="back">Back</button>
+</body>
+</html>
+<script type="text/javascript" charset="utf-8">
+  	
+  	mui.plusReady(function(){
+  		var ranking_webview = plus.webview.create('ranking.html','ranking.html',{top:'0px',bottom:'0px',width:'50%'})
+  		var about_webview = plus.webview.create('about.html','about.html',{top:'0px',bottom:'0px',width:'50%'})
+  		ranking_webview.hide()
+  		about_webview.hide()
+  		document.querySelector('#ranking_btn').addEventListener('tap',function(){
+	  		ranking_webview.show('slide-in-left')
+	  		setTimeout(function(){
+	  			about_webview.hide()
+	  		},300)
+	  	})
+	  	document.querySelector('#about_btn').addEventListener('tap',function(){
+	  		about_webview.show('slide-in-left')
+	  		setTimeout(function(){
+	  			ranking_webview.hide()
+	  		},300)
+	  	})
+	  	document.querySelector('#back').addEventListener('tap',function(){
+	  		var game = plus.webview.getWebviewById('game.html')
+	  		mui.fire(game,'close-menu')
+	  		ranking_webview.hide('slide-out-left')
+	  		about_webview.hide('slide-out-left')
+	  	})
+  	})
+  	
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/108548/47031/59cb260bf629d80424a68057.css' rel='stylesheet' type='text/css' />
+    <style type="text/css">
+    		body,html{
+    			height: 100%;background: #beaea1;
+    		}
+    		body{
+    			display: flex;justify-content: center;align-items: center;
+    			color: #fff;
+    		}
+    		.center-box{
+    			display: flex;flex-direction: column;justify-content: space-around;align-items: center;
+    		}
+    		.center-box h3{
+    			margin-bottom:50px;
+    			text-align: center;
+    		}
+    		.center-box button{
+    			background: #ec9759;
+    			border: 1px solid #ec9759;
+    			color: #fff;
+    		}
+    </style>
+</head>
+<body class="cssd66b5e3331a804">
+	<div class="center-box">
+		<h3>FRONT-END ENGINEER 2048</h3>
+		<button class="mui-btn start">start</button>
+	</div>
+</body>
+</html>
+<script type="text/javascript" charset="utf-8">
+  	mui.init({
+  		statusBarBackground:'#beaea1'
+  	});
+  	mui.plusReady(function(){
+  		plus.screen.lockOrientation('portrait-primary')
+  	})
+  	mui('.center-box').on('tap','.start',function(){
+  		mui.openWindow({
+  			url:'game.html',
+  			id:'game.html',
+  			style:{
+  				top:0,bottom:0
+  			},
+  			show:{
+  				autoShow:true,
+  				aniShow:'pop-in',
+  				duration:'400'
+  			}
+  		})
+  		setTimeout(function(){
+  			plus.navigator.setStatusBarBackground('#fbf8f3')
+  		},200)
+  	})
+</script>

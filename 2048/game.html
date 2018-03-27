@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/108548/47031/59cb260bf629d80424a68057.css' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="css/game.css"/>
+</head>
+<body class="cssd66b5e3331a804">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<a class="mui-icon mui-icon mui-icon-bars mui-pull-right menu"></a>
+	</header>
+	<div class="mui-content">
+		<div class="game-box">
+			<div class="game-content">
+				<div class="br11"></div>
+				<div class="br12"></div>
+				<div class="br13"></div>
+				<div class="br14"></div>
+				<div class="br21"></div>
+				<div class="br22"></div>
+				<div class="br23"></div>
+				<div class="br24"></div>
+				<div class="br31"></div>
+				<div class="br32"></div>
+				<div class="br33"></div>
+				<div class="br34"></div>
+				<div class="br41"></div>
+				<div class="br42"></div>
+				<div class="br43"></div>
+				<div class="br44"></div>
+				
+				<div class="gr11c"></div>
+				<div class="gr12c"></div>
+				<div class="gr13c"></div>
+				<div class="gr14c"></div>
+				<div class="gr21c"></div>
+				<div class="gr22c"></div>
+				<div class="gr23c"></div>
+				<div class="gr24c"></div>
+				<div class="gr31c"></div>
+				<div class="gr32c"></div>
+				<div class="gr33c"></div>
+				<div class="gr34c"></div>
+				<div class="gr41c"></div>
+				<div class="gr42c"></div>
+				<div class="gr43c"></div>
+				<div class="gr44c"></div>
+			</div>
+			<div class="game-info">
+				<button class="mui-btn">now: <span id="now">0</span></button>
+				<button class="mui-btn">best: <span id="best">0</span></button>
+			</div>
+			<div class="alert-box  cssd66489b10531b mui-hidden">
+				<h3>You Win!</h3>
+				<button id="restart" class="mui-btn mui-btn-success bg-color">Restart</button>
+			</div>
+		</div>
+		
+		
+	</div>
+</body>
+</html>
+<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	var menu = null;				//侧边栏页面对象
+  	var main = null;				//当前页面对象
+  	var showMenu = false;		//是否显示侧边栏
+  	var isInTransition = false	//是否处于滑动中
+  	
+  	mui.init({
+  		beforeback:function(){
+  			setTimeout(function(){
+  				plus.navigator.setStatusBarBackground('#beaea1')
+  			},300)
+  		}
+  	});
+  	
+  	mui.plusReady(function(){
+  		plus.screen.lockOrientation('portrait-primary')
+  		main = plus.webview.currentWebview()
+  		setTimeout(function(){
+  			menu = mui.preload({			//right.html即menu，是预加载出来的
+			    url:'right.html',
+			    id:'right.html',//默认使用当前页面的url作为id
+			    styles:{right:'0px',width:'50%'},
+			    show:{aniShow:'none'},
+			    extras:{}//自定义扩展参数
+			});
+  		},300)
+  		main.addEventListener('maskClick',closeMenu)
+  	})
+  	
+  	mui(".mui-bar").on('tap','.menu',function(){
+		openMenu()
+  	})
+  	
+  	//打开侧滑窗口的方法
+  	function openMenu(){
+  		if(isInTransition){return ;}
+  		if(!showMenu){
+  			isInTransition = true;
+  			
+  			main.setStyle({
+  				mask : 'rgba(0,0,0,0.5)',
+  				right : '50%',
+  				transition : {duration:300}
+  			})
+  			menu.show('slide-in-right',300,function(){
+  				mui.later(function(){
+  					isInTransition = false;
+  					menu.setStyle({mask:'none'})
+  				},300)
+  				showMenu = true;
+  			})
+  		}
+  	}
+  	
+  	//关闭侧滑窗口
+  	function closeMenu(){
+  		if(isInTransition){return ;}
+  		if(showMenu){
+  			isInTransition:true;
+  			main.setStyle({
+  				mask:'none',
+  				right:'0%',
+  				transition:{duration:300}
+  			})
+  			menu.hide('slide-out-right',300)
+  			showMenu = false
+  			mui.later(function(){
+  				isInTransition = false
+  			},300)
+  		}
+  	}
+
+	window.addEventListener('close-menu',closeMenu)
+</script>
